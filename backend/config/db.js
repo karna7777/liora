@@ -6,7 +6,6 @@ export const connectDB = async () => {
       serverSelectionTimeoutMS: 30000,
       socketTimeoutMS: 45000,
       connectTimeoutMS: 30000,
-      bufferCommands: false,
       maxPoolSize: 10,
       minPoolSize: 5,
     });

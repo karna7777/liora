@@ -11,12 +11,15 @@ app.use(cors({
   origin: ["https://liora-inky.vercel.app", "http://localhost:5173"]
 }));
 
-// Connect to MongoDB
-connectDB();
-
 // Routes
 app.use("/api/auth", authRoutes);
 
-app.listen(PORT, ()=>{
+// Connect to MongoDB and start server
+const startServer = async () => {
+  await connectDB();
+  app.listen(PORT, () => {
     console.log(`Server running on port http://localhost:${PORT}`);
-})
+  });
+};
+
+startServer();
