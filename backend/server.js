@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 8000
 
 // Middleware
 app.use(cors({
-  origin: "*"
+  origin: ["https://liora-inky.vercel.app", "http://localhost:5173"]
 }));
 
 // Connect to MongoDB

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Base URL for backend
-const API_URL = "http://localhost:8000/api/auth/";
+const API_URL = "https://liora-972p.onrender.com/api/auth/";
 
 export const signup = async (userData) => {
   const res = await axios.post(API_URL + "signup", userData);
