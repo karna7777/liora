@@ -5,6 +5,11 @@ export const connectDB = async () => {
     await mongoose.connect(process.env.MONGO_URI, {
       serverSelectionTimeoutMS: 30000,
       socketTimeoutMS: 45000,
+      connectTimeoutMS: 30000,
+      bufferCommands: false,
+      bufferMaxEntries: 0,
+      maxPoolSize: 10,
+      minPoolSize: 5,
     });
     console.log("MongoDB Connected");
   } catch (error) {
