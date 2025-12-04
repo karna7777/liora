@@ -14,12 +14,7 @@ export const createListing = createAsyncThunk(
     'listings/create',
     async (listingData, { rejectWithValue }) => {
         try {
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            };
-            const response = await axios.post('/listings', listingData, config);
+            const response = await axios.post('/listings', listingData);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data.message);
@@ -32,12 +27,7 @@ export const updateListing = createAsyncThunk(
     'listings/update',
     async ({ id, listingData }, { rejectWithValue }) => {
         try {
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            };
-            const response = await axios.put(`/listings/${id}`, listingData, config);
+            const response = await axios.put(`/listings/${id}`, listingData);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data.message);

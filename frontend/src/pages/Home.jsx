@@ -46,30 +46,31 @@ const Home = () => {
         // Main container
         <div className="min-h-screen">
             {/* Hero section with search */}
-            <div className="relative bg-gradient-to-r from-rose-500 to-rose-700 text-white">
-                <div className="absolute inset-0 bg-black opacity-20"></div>
+            <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-amber-900 text-white overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-600/10 to-rose-600/10"></div>
+                <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(217, 119, 6, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%)' }}></div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
                     <div className="max-w-3xl">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight bg-gradient-to-r from-amber-200 via-amber-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
                             Find your perfect place to stay
                         </h1>
-                        <p className="text-xl md:text-2xl mb-8 text-rose-100">
+                        <p className="text-xl md:text-2xl mb-8 text-amber-100/90 font-light tracking-wide">
                             Experience the world with unique accommodations
                         </p>
                         
                         {/* Search form */}
-                        <form onSubmit={handleSearch} className="bg-white rounded-full shadow-xl p-1 flex max-w-2xl">
+                        <form onSubmit={handleSearch} className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-2 flex max-w-2xl border border-amber-500/20">
                             <div className="flex-1">
                                 <input
                                     type="text"
                                     name="location"
                                     placeholder="Search destinations..."
-                                    className="w-full px-6 py-4 text-gray-900 rounded-full focus:outline-none text-lg"
+                                    className="w-full px-6 py-4 text-gray-900 rounded-xl focus:outline-none text-lg bg-transparent placeholder-gray-500"
                                 />
                             </div>
                             <button
                                 type="submit"
-                                className="bg-rose-600 hover:bg-rose-700 text-white font-semibold py-4 px-8 rounded-full flex items-center transition duration-200"
+                                className="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-semibold py-4 px-8 rounded-xl flex items-center transition-all duration-300 shadow-lg hover:shadow-amber-500/50"
                             >
                                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
