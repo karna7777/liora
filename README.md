@@ -2,6 +2,11 @@
 
 A full-stack vacation rental platform built with React, Node.js, Express, and MongoDB. Users can browse listings, book properties, manage their trips, and communicate with hosts.
 
+
+##Hosted Links
+Frontend-https://liora-inky.vercel.app/
+Backend-https://liora-972p.onrender.com
+
 ## Features
 
 - 🔐 User Authentication (Register, Login, Logout)
