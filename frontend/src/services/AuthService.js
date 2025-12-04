@@ -1,14 +1,3 @@
-import axios from "axios";
-
-// Base URL for backend
-const API_URL = "https://liora-972p.onrender.com/api/auth/";
-
-export const signup = async (userData) => {
-  const res = await axios.post(API_URL + "signup", userData);
-  return res.data;
-};
-
-export const login = async (userData) => {
-  const res = await axios.post(API_URL + "login", userData);
-  return res.data;
-};
+// This file is no longer needed as we're using Redux slices directly
+// Keeping it for backward compatibility but it's deprecated
+// Use: dispatch(register(...)) or dispatch(login(...)) from authSlice instead

@@ -1,47 +1,93 @@
-import User from "../models/User.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import User from '../models/User.js';
+import generateToken from '../utils/generateToken.js';
 
-export const register = async (req, res) => {
+// @desc    Register a new user
+// @route   POST /api/auth/register
+// @access  Public
+const registerUser = async (req, res) => {
+  const { name, email, password } = req.body;
+
   try {
-    const { name, email, password, role } = req.body;
-
     const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json({ msg: "Email already exists" });
+
+    if (userExists) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
 
     const user = await User.create({
       name,
       email,
       password,
-      role,
     });
 
-    res.status(201).json({ msg: "User registered successfully", user });
-  } catch (err) {
-    res.status(500).json({ msg: err.message });
+    if (user) {
+      generateToken(res, user._id);
+      const userData = await User.findById(user._id).select('-password');
+      res.status(201).json({
+        _id: userData._id,
+        name: userData.name,
+        email: userData.email,
+        role: userData.role,
+        avatar: userData.avatar,
+        wishlist: userData.wishlist,
+      });
+    } else {
+      res.status(400).json({ message: 'Invalid user data' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
-export const login = async (req, res) => {
+// @desc    Auth user & get token
+// @route   POST /api/auth/login
+// @access  Public
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
   try {
-    const { email, password } = req.body;
+    const user = await User.findOne({ email }).select('+password');
 
-    const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ msg: "User not found" });
-
-    const validPass = await bcrypt.compare(password, user.password);
-    if (!validPass) return res.status(400).json({ msg: "Invalid password" });
-
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
-
-    res.json({
-      msg: "Login successful",
-      token,
-      user: { id: user._id, email: user.email, role: user.role }
-    });
-  } catch (err) {
-    res.status(500).json({ msg: err.message });
+    if (user && (await user.matchPassword(password))) {
+      generateToken(res, user._id);
+      const userData = await User.findById(user._id).select('-password');
+      res.json({
+        _id: userData._id,
+        name: userData.name,
+        email: userData.email,
+        role: userData.role,
+        avatar: userData.avatar,
+        wishlist: userData.wishlist,
+      });
+    } else {
+      res.status(401).json({ message: 'Invalid email or password' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
+
+// @desc    Logout user / clear cookie
+// @route   POST /api/auth/logout
+// @access  Public
+const logoutUser = (req, res) => {
+  res.cookie('jwt', '', {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.status(200).json({ message: 'Logged out successfully' });
+};
+
+// @desc    Get current logged in user
+// @route   GET /api/auth/me
+// @access  Private
+const getCurrentUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select('-password');
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { registerUser, loginUser, logoutUser, getCurrentUser };

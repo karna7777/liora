@@ -1,0 +1,19 @@
+PORT=8000
+NODE_ENV=development
+
+# MongoDB
+MONGO_URI=your_mongodb_connection_string_here
+
+# JWT Secret
+JWT_SECRET=your_jwt_secret_here_change_this_in_production
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+# Stripe
+STRIPE_SECRET_KEY=your_stripe_secret_key_here
+
+# Mapbox
+MAPBOX_TOKEN=your_mapbox_access_token_here
